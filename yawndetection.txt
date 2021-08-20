@@ -1,0 +1,24 @@
+A.	ALGORITHM FOR YAWN DETECTION
+The video is captured and is divided into frames. For each frame, face detection is done. As the region of interest is mouth for yawn, so we find the second largest contour in the ROI; Largest is the contour of the bottom half of the face and Second largest is the lips and mouth while yawning, so it is taken into consideration by separating it. The frame image is equalized, converted to grey scale. Threshold the image to get binary image (pixels value above 64 is set to 255 or else 0). Contours are made in the binary image and end points of contoured region are stored. The area of contoured region (bottom half of face rectangle) is calculated. Then, the threshold value detects the yawn or its probability as specified. 
+To detect the yawn we must find out the region of mouth and lips. To do this, we first find area of the largest contour on face which is the bottom half of the face using:
+
+Area of bottom half = (Width of face rectangle * Height of face rectangle) / 2
+
+Now inside this area is the second largest area which is of yawning. To find that, we use 
+Ideal Facial Proportions or the Golden Ratio to locate lips and mouth while yawning using:
+
+Lip corner 1 = Width / 4
+Lip corner 2 = 3*Width / 4
+Mouth upper = Height (since jaw only moves down)
+Mouth lower = 11*Height / 16
+
+Now with these corners, area of mouth open is calculated. 
+
+The ratio (>0.06) keeps a check if the open mouth area can be considered as a yawn or not.
+For when the ratio is valid, time is noted to calculate the current probability of yawn. 
+Current probability of yawn (%) = Current Ratio*1000 (rounded to 2 places in code)
+
+(Logic: If 2 seconds is the yawning time fixed, 1 second time indicates 50% probability of yawn at that time)
+The yawn is said to be detected when yawn counter reaches 8, and a yawn is counted when:
+Yawn count = Yawn time – Time started >= Average yawn time (Threshold yawn time fixed)
+
