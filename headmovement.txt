@@ -1,0 +1,10 @@
+A.	ALGORITHM FOR HEAD MOVEMENT
+In head movement detection, the video captured is first divided into frames. Frames are processed by converting to grey scale and detecting face. <br>
+Shi Tomasi algorithm is implemented to find corners. This is to detect the corners of face to know how much as the head bent. <br>
+To know the movement of head in the consecutive frames Lucas Kanade Optical flow is used which assumes points or pixels nearby to have same flow.<br>
+A finite while loop runs which takes each frame and detects the face and the co-ordinates (x, y) of the movement of head is found. <br>
+The centre of the face co-ordinates is found and the point is named as p0. Using Lucas Kanade Optical flow the movement of head is found and the point is named as p1. <br>
+The distance between the points is found. A fixed threshold value is fixed in both the directions.<br>
+If the movement of head is greater than the threshold value, head movement is detected. 
+
+
